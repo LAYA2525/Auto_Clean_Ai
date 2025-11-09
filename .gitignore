@@ -47,6 +47,9 @@ cleaning_report_*.json
 cleaned_*.csv
 cleaned_*.xlsx
 
+# Streamlit secrets (API keys)
+.streamlit/secrets.toml
+
 # Jupyter Notebooks
 .ipynb_checkpoints
 
