@@ -1,8 +1,9 @@
-'''Core Dependencies for Chatbot'''
+'''Core Dependencies for GenAI Data Cleaner'''
 streamlit
 pandas
 numpy
 plotly
 openpyxl
+google-generativeai
 
 

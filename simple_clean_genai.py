@@ -2,6 +2,21 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import google.generativeai as genai
+import os
+import json
+
+# Configure Gemini API
+# Get API key from environment or Streamlit secrets
+try:
+    GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.getenv("GEMINI_API_KEY", ""))
+    if GEMINI_API_KEY:
+        genai.configure(api_key=GEMINI_API_KEY)
+        USE_GENAI = True
+    else:
+        USE_GENAI = False
+except:
+    USE_GENAI = False
 
 # '''Configure page'''
 st.set_page_config(
@@ -376,6 +391,40 @@ refer to the AI Assistant chat interface.
     
     @staticmethod 
     def chat_response(query, stats, is_processed=False):
+        """AI-powered chat response using Google Gemini or fallback to rule-based"""
+        
+        # Try to use GenAI first
+        if USE_GENAI:
+            try:
+                model = genai.GenerativeModel('gemini-pro')
+                
+                # Create context-aware prompt
+                operations_info = ""
+                if is_processed and hasattr(st.session_state, 'operations'):
+                    operations_info = f"\nCleaning operations performed: {', '.join(st.session_state.operations)}"
+                
+                prompt = f"""You are an AI data cleaning assistant. Answer the user's question about their dataset.
+
+Dataset Information:
+- Rows: {stats['rows']:,}
+- Columns: {stats['cols']}
+- Missing Values: {stats['missing']}
+- Duplicates: {stats['duplicates']}
+- Quality Score: {stats['quality']:.1f}%
+- Data Processed: {'Yes' if is_processed else 'No'}{operations_info}
+
+User Question: {query}
+
+Provide a helpful, concise answer (2-3 sentences max). Be specific about their data. Use a friendly, professional tone."""
+
+                response = model.generate_content(prompt)
+                return response.text
+                
+            except Exception as e:
+                # If GenAI fails, fall back to rule-based
+                pass
+        
+        # Fallback: Rule-based responses
         query = query.lower().strip()
         import random
         
@@ -442,9 +491,9 @@ refer to the AI Assistant chat interface.
         # GenAI/AI questions
         elif any(word in query for word in ['genai', 'ai', 'artificial', 'intelligence', 'smart']):
             responses = [
-                "I'm a GenAI assistant powered by machine learning algorithms for intelligent data preprocessing, quality assessment, and automated cleaning workflows.",
-                "As a GenAI system, I use neural network concepts, ensemble methods, and statistical AI to understand and clean your data automatically.",
-                "I represent the latest in GenAI technology: combining natural language processing, machine learning preprocessing, and intelligent automation for data science."
+                "I'm a GenAI assistant powered by Google Gemini for intelligent data preprocessing, quality assessment, and automated cleaning workflows.",
+                "As a GenAI system, I use Google's Gemini LLM combined with statistical AI to understand and clean your data automatically.",
+                "I represent the latest in GenAI technology: combining Google Gemini LLM, machine learning preprocessing, and intelligent automation for data science."
             ]
             return random.choice(responses)
         

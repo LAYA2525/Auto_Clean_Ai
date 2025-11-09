@@ -1,53 +1,78 @@
-# 🤖 AI Data Preprocessing Chatbot
+# 🤖 GenAI-Powered Data Cleaning Assistant
 
-An intelligent chatbot that automatically detects data quality issues and provides one-click fixes for your datasets.
+An intelligent data cleaning application powered by **Google Gemini AI** for automated data preprocessing and quality enhancement.
 
 ## ✨ Key Features
 
-- 🔍 **Automatic Issue Detection**: Instantly identifies missing values, duplicates, outliers, and formatting issues
-- 🔧 **One-Click Fixes**: Fix individual issues with dedicated "Fix This Issue" buttons
-- 📊 **Real-Time Analysis**: Live dataset preview and statistics
-- 💬 **Interactive Chat**: Ask questions about your data and get instant insights
-- 📥 **Download Results**: Get your cleaned dataset with detailed cleaning history
+- 🤖 **Real GenAI Integration**: Powered by Google Gemini LLM for intelligent chat responses
+- 🔍 **Automatic Analysis**: Instantly analyzes data quality, missing values, and duplicates
+- 🧹 **One-Click Cleaning**: Automated cleaning with median/mode imputation and duplicate removal
+- � **AI Chat Assistant**: Natural language conversation about your data using Gemini AI
+- � **Quality Metrics**: Real-time quality score and comprehensive statistics
+- 📥 **Dual Downloads**: Get both cleaned data and detailed cleaning report
+- � **Clean Interface**: Professional, minimalist design perfect for presentations
 
-## 🎯 What Issues It Detects & Fixes
+## 🚀 Setup Instructions
 
-- **Missing Values** (High/Medium/Low priority based on percentage)
-- **Duplicate Rows** (Removes identical rows)  
-- **Outliers** (IQR-based detection and capping)
-- **Text Formatting Issues** (Standardizes case and removes extra spaces)
+### 1. Install Dependencies
 
-## Quick Start
-
-1. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Run the chatbot:
-```bash
-streamlit run chatbot_app.py
+### 2. Get Google Gemini API Key (FREE)
+
+1. Visit: https://makersuite.google.com/app/apikey
+2. Click "Create API Key"
+3. Copy your API key
+
+### 3. Configure API Key
+
+Edit `.streamlit/secrets.toml` and add your API key:
+
+```toml
+GEMINI_API_KEY = "your-actual-api-key-here"
 ```
 
-3. Upload your CSV/Excel file and start chatting!
+### 4. Run the Application
 
-## Usage
+```bash
+streamlit run simple_clean_genai.py
+```
 
-- Upload your dataset using the sidebar
-- Ask the chatbot to "analyze data" or "preprocess data"
-- Download your cleaned dataset
-- Chat naturally about your data needs
+## 🎯 GenAI Features
 
-## Supported Formats
+### Real AI-Powered Chat
+- Uses Google Gemini Pro model for natural language understanding
+- Context-aware responses based on your actual dataset
+- Intelligent answers to any data cleaning question
+- Falls back to rule-based responses if API is unavailable
 
-- CSV files
-- Excel files (.xlsx, .xls)
+### Intelligent Analysis
+- Automated quality scoring
+- Smart duplicate detection
+- Missing value identification
+- Statistical preprocessing
 
-## Automatic Processing
+## 📖 Usage
 
-The chatbot automatically:
-- Removes duplicate rows
-- Fills missing values (median for numbers, mode for text)
+1. **Upload Dataset**: Upload CSV file through the interface
+2. **View Analysis**: See automatic quality metrics (rows, columns, missing, duplicates, quality score)
+3. **Clean Data**: Click "Clean Data" button for AI-powered preprocessing
+4. **View Results**: Expand "Results" and "View Details" sections
+5. **Download**: Get cleaned data (CSV) and comprehensive report (TXT)
+6. **Chat with AI**: Ask questions about your data, cleaning methods, or algorithms
+
+## 🤖 What Makes This GenAI?
+
+- **Google Gemini Integration**: Real LLM API calls for chat responses
+- **Natural Language Processing**: Understands and responds to user queries intelligently
+- **Context-Aware AI**: Responses adapt based on your dataset's actual statistics
+- **Automated Intelligence**: AI-powered decision making for data cleaning strategies
+
+## 📊 Supported Data Formats
+
+- CSV files (.csv)
 - Standardizes text formatting
 - Caps outliers using IQR method
 - Provides detailed processing reports
