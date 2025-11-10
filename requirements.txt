@@ -1,4 +1,4 @@
-'''Core Dependencies for GenAI Data Cleaner'''
+# Core Dependencies for GenAI Data Cleaner
 streamlit
 pandas
 numpy
